@@ -1,0 +1,59 @@
+@startuml
+
+# 0.global
+global :: "StateName:TaskStateEnum"
+global :: "ClassName:TaskRunner"
+
+# 1.title
+Idle = "IDLE"
+Wait = "WAIT"
+
+ConfigReady = "CONFIG_READY"
+FileReady = "FILE_READY"
+PreviousnessRunning = "PREVIOUSNESS_RUNNING"
+ProgramExecuting = "PROGRAM_EXECUTING"
+PostfixRunning = "POSTFIX_RUNNING"
+WorkerReturn = "WORKER_RETURN"
+
+Stop = "STOP"
+Finish = "FINISH"
+
+# 2.link
+[Start] --> Idle : "createTask"
+Idle --> Wait : "setWorker"
+Wait --> ConfigReady : "getConfig"
+
+ConfigReady --> FileReady : "rsyncFiles"
+FileReady --> PreviousnessRunning : "runPreviousness"
+PreviousnessRunning --> ProgramExecuting : "execute"
+ProgramExecuting --> PostfixRunning : "runPostfix"
+PostfixRunning --> WorkerReturn : "report"
+
+ConfigReady --> Stop : "stop"
+FileReady --> Stop : "stop"
+PreviousnessRunning --> Stop : "stop"
+ProgramExecuting --> Stop : "stop"
+PostfixRunning --> Stop : "stop"
+Stop --> Wait : "restart"
+WorkerReturn --> Finish : "setFinish"
+
+Idle --> [End] : "deleteTask"
+Wait --> [End] : "deleteTask"
+Stop --> [End] : "deleteTask"
+Finish --> [End] : "deleteTask"
+
+# 3.detail
+Idle : "初始状态"
+Wait : "等待状态"
+
+ConfigReady : "配置加载就绪"
+FileReady : "文件准备就绪"
+PreviousnessRunning : "前置操作执行"
+ProgramExecuting : "程序执行"
+PostfixRunning : "后置操作执行"
+WorkerReturn : "程序执行结束"
+
+Stop : "停止状态"
+Finish : "完成状态"
+
+@enduml

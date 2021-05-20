@@ -1,0 +1,5 @@
+{
+    "code_template_dir": "./resource/CodeTemplate",
+    "text_model_dir": "./resource/TextModel",
+    "default_project": "../test/proj/DistributedSystem.fsm"
+}

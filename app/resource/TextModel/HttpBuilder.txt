@@ -1,0 +1,25 @@
+@startuml
+
+# 0.global（全局属性）
+global :: "StateName:BuilderState"
+global :: "ClassName:HttpConnectionBuilder"
+
+# 1.link（迁移）
+[Start] --> Headers : "AddHeader"
+Headers --> Headers : "AddHeader"
+Headers --> Body : "AddBody"
+Body --> [End] : "Build"
+
+# 2.title（状态名）
+Headers = "HEADERS"
+Body = "BODY"
+
+# 3.detail（状态注释）
+Headers : "可以添加消息头状态"
+Body : "添加完消息头状态"
+
+# 4.nattr（设置节点属性）
+Headers << "bcolor:yellow"
+Body << "text_color:green,title_color:red,detail_color:blue"
+
+@enduml

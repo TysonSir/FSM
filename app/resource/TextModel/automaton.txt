@@ -1,0 +1,65 @@
+@startuml
+
+# link
+C001 --> 0000 : "0: !Activate"
+C002 --> 0000 : "0: !Activate"
+
+8004 --> C001 : "1: Timer >= DiscrepancyTime"
+C001 --> 8001 : "1: !S_ChannelA & !S_ChannelB"
+0000 --> 8001 : "1: Activate"
+8001 --> 0000 : "0: !Activate"
+C002 --> 8001 : "1: !S_ChannelA & !S_ChannelB"
+8014 --> C002 : "1: Timer >= DiscrepancyTime"
+
+8001 --> 8004 : "1: S_ChannelA & !S_ChannelB"
+8001 --> 8014 : "2: !S_ChannelA & S_ChannelB"
+8004 --> 8001 : "2: !S_ChannelA"
+8014 --> 8001 : "2: !S_ChannelB"
+
+8004 --> 8000 : "3: S_ChannelB"
+8001 --> 8000 : "3: S_ChannelA & S_ChannelB"
+8005 --> 8001 : "2: !S_ChannelA & !S_ChannelB"
+C003 --> 8001 : "1: !S_ChannelA & !S_ChannelB"
+8000 --> 8001 : "2: !S_ChannelA & !S_ChannelB"
+8014 --> 8000 : "3: S_ChannelA"
+
+8005 --> C003 : "1: Timer >= DiscrepancyTime"
+8000 --> 8005 : "2: !S_ChannelA XOR !S_ChannelB"
+
+8005 --> 0000 : "0: !Activate"
+8004 --> 0000 : "0: !Activate"
+8000 --> 0000 : "0: !Activate"
+C003 --> 0000 : "0: !Activate"
+8014 --> 0000 : "0: !Activate"
+
+
+# title
+C001 = "Error1"
+0000 = "Idle"
+C002 = "Error2"
+
+8004 = "Wait for Channel B"
+8001 = "Init"
+8014 = "Wait for Channel A"
+
+8005 = "From Active Wait"
+8000 = "Safety Output Enabled"
+C003 = "Error3"
+
+# detail
+C001 : "Ready\n!S_EquivalentOut\nError"
+0000 : "!Ready\n!S_EquivalentOut\n!Error"
+C002 : "Ready\n!S_EquivalentOut\nError"
+
+8004 : "Ready\n!S_EquivalentOut\n!Error"
+8001 : "Ready\n!S_EquivalentOut\n!Error"
+8014 : "Ready\n!S_EquivalentOut\n!Error"
+
+8005 : "Ready\n!S_EquivalentOut\n!Error"
+8000 : "Ready\n!S_EquivalentOut\nError"
+C003 : "Ready\n!S_EquivalentOut\nError"
+
+# nattr
+8004 << "bcolor:blue"
+
+@enduml

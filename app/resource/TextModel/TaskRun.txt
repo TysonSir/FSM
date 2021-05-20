@@ -1,0 +1,34 @@
+@startuml
+
+# 0.global
+
+
+# 1.link
+[Start] --> Idle : "创建任务"
+Idle --> Wait : "分配服务器"
+Wait --> Run : "开始执行"
+Run --> Stop : "执行停止"
+Stop --> Wait : "重新启动"
+Run --> Finish : "执行结束"
+
+
+Idle --> [End] : "删除任务"
+Wait --> [End] : "删除任务"
+Stop --> [End] : "删除任务"
+Finish --> [End] : "删除任务"
+
+# 2.title
+Idle = "初始状态"
+Wait = "等待状态"
+Run = "执行状态"
+Stop = "停止状态"
+Finish = "完成状态"
+
+# 3.detail
+Idle : "task_num\ndata_set\ncode_content\ncode_tag\ncreate_time"
+Wait : "task_num\ndata_set\ncode_content\ncode_tag\ncreate_time\nserver_info"
+Run : "task_num\ndata_set\ncode_content\ncode_tag\ncreate_time\nserver_info\nstart_time"
+Stop : "task_num\ndata_set\ncode_content\ncode_tag\ncreate_time\nserver_info\nstart_time\nstop_time"
+Finish : "task_num\ndata_set\ncode_content\ncode_tag\ncreate_time\nserver_info\nstart_time\nfinish_time\ntask_output"
+
+@enduml

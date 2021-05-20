@@ -1,0 +1,34 @@
+@startuml
+
+# 0.global
+
+
+# 1.link
+[Start] --> Idle : "createTask"
+Idle --> Wait : "setWorker"
+Wait --> Run : "run"
+Run --> Stop : "stop"
+Stop --> Wait : "restart"
+Run --> Finish : "report"
+
+
+Idle --> [End] : "deleteTask"
+Wait --> [End] : "deleteTask"
+Stop --> [End] : "deleteTask"
+Finish --> [End] : "deleteTask"
+
+# 2.title
+Idle = "IDLE"
+Wait = "WAIT"
+Run = "RUN"
+Stop = "STOP"
+Finish = "FINISH"
+
+# 3.detail
+Idle : "task_num\ndata_set\ncode_content\ncode_tag\ncreate_time"
+Wait : "task_num\ndata_set\ncode_content\ncode_tag\ncreate_time\nserver_info"
+Run : "task_num\ndata_set\ncode_content\ncode_tag\ncreate_time\nserver_info\nstart_time"
+Stop : "task_num\ndata_set\ncode_content\ncode_tag\ncreate_time\nserver_info\nstart_time\nstop_time"
+Finish : "task_num\ndata_set\ncode_content\ncode_tag\ncreate_time\nserver_info\nstart_time\nfinish_time\ntask_output"
+
+@enduml
